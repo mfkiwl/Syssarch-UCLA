@@ -62,17 +62,21 @@ entity top is
     uart0_txd_o : out std_ulogic; -- UART0 send data
     uart0_rxd_i : in  std_ulogic;  -- UART0 receive data
 	 
-	 -- input key (stevez) --
-	 key0			: in std_ulogic;
-	 
-	 -- output LED (stevez) -- 
-	 ledR0 		: out std_ulogic
+	  -- input key (stevez) --
+	  key0			: in std_ulogic;
+	  key1 			: in std_ulogic; --> neorv32_cpu
+	  
+	  -- output LED (stevez) -- 
+	  ledR0 		: out std_ulogic
   );
 end entity;
 
 architecture neorv32_test_on_chip_debugger_rtl of top is
 
   signal con_gpio_o : std_ulogic_vector(63 downto 0);
+
+-- input gpio (stevez) --
+signal con_gpio_i : std_ulogic_vector(63 downto 0);
 
 begin
 
@@ -114,16 +118,20 @@ begin
     jtag_tms_i  => jtag_tms_i,  -- mode select
     -- GPIO (available if IO_GPIO_NUM > 0) --
     gpio_o      => con_gpio_o,  -- parallel output
+	-- input gpio (stevez) -- 
+	gpio_i 	=> con_gpio_i, -- parallel input
     -- primary UART0 (available if IO_UART0_EN = true) --
     uart0_txd_o => uart0_txd_o, -- UART0 send data
     uart0_rxd_i => uart0_rxd_i  -- UART0 receive data
   );
 
   -- GPIO output --
-  gpio_o <= NOT con_gpio_o(7 downto 0);
+  gpio_o <= con_gpio_o(7 downto 0);
   
   -- debug (stevez) -- 
-  ledR0 <= NOT key0;
+  ledR0 <= NOT key0; --> key0 default '1'
+con_gpio_i(0) <= NOT key1; --> key1 default '1'
+con_gpio_i(63 downto 1) <= (others => '0');
 
 
 end architecture;
