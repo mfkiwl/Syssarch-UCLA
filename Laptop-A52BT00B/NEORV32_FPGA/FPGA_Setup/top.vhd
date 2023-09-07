@@ -67,7 +67,7 @@ entity top is
 	  key1 			: in std_ulogic; --> neorv32_cpu
 	  
 	  -- output LED (stevez) -- 
-	  led 		: out std_ulogic_vector(9 downto 0); 
+	  led 		: out std_ulogic_vector(9 downto 0) 
   );
 end entity;
 
