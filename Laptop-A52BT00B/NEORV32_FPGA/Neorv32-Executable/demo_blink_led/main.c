@@ -53,13 +53,25 @@ int main() {
   // clear GPIO output (set all bits to 0)
   neorv32_gpio_port_set(0);
 
-  int cnt = 0;
+  int cnt = 3; // --> subjected to change later for testing
 
+  /**********  test case 1 ***********/  --> fixed output
+  
   while (1) {
-    neorv32_gpio_port_set(cnt++ & 0xFF); // increment counter and mask for lowest 8 bit
-    neorv32_cpu_delay_ms(250); // wait 250ms using busy wait
+    
+    neorv32_gpio_port_set(cnt & 0xFF); // increment counter and mask for lowest 8 bit
+    
+    // neorv32_cpu_delay_ms(250); // wait 250ms using busy wait
   }
 
+  /**********  test case 2 ***********/  --> based on key1 input to light the led
+
+  while (1) {
+    
+    neorv32_gpio_port_set(cnt & 0xFF); // increment counter and mask for lowest 8 bit
+    
+  }
+    
   // this should never be reached
   return 0;
 }
