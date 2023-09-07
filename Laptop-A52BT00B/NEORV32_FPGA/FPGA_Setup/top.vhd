@@ -57,7 +57,7 @@ entity top is
     jtag_tdo_o  : out std_ulogic; -- serial data output
     jtag_tms_i  : in  std_ulogic; -- mode select
     -- GPIO --
-    gpio_o      : out std_ulogic_vector(7 downto 0); -- parallel output
+    gpio_o      : out std_ulogic_vector(7 downto 0); -- parallel output 
     -- UART0 --
     uart0_txd_o : out std_ulogic; -- UART0 send data
     uart0_rxd_i : in  std_ulogic;  -- UART0 receive data
@@ -67,7 +67,7 @@ entity top is
 	  key1 			: in std_ulogic; --> neorv32_cpu
 	  
 	  -- output LED (stevez) -- 
-	  ledR0 		: out std_ulogic
+	  led 		: out std_ulogic_vector(9 downto 0); 
   );
 end entity;
 
@@ -127,9 +127,10 @@ begin
 
   -- GPIO output --
   gpio_o <= con_gpio_o(7 downto 0);
-  
+
   -- debug (stevez) -- 
-  ledR0 <= NOT key0; --> key0 default '1'
+led(7 downto 0) <= con_gpio_o(7 downto 0);
+led(9) <= NOT key0; --> key0 default '1'
 con_gpio_i(0) <= NOT key1; --> key1 default '1'
 con_gpio_i(63 downto 1) <= (others => '0');
 
