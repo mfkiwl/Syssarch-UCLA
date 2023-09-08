@@ -61,6 +61,12 @@ entity top is
     -- UART0 --
     uart0_txd_o : out std_ulogic; -- UART0 send data
     uart0_rxd_i : in  std_ulogic;  -- UART0 receive data
+	  	
+	-- SPI for bootloader (stevez) --
+   	spi_clk_o      : out std_ulogic; -- SPI serial clock
+   	spi_dat_o      : out std_ulogic; -- controller data out, peripheral data in
+   	spi_dat_i      : in  std_ulogic := 'U'; -- controller data in, peripheral data out
+   	spi_csn_o      : out std_ulogic_vector(07 downto 0); -- chip-select
 	 
 	  -- input key (stevez) --
 	  key0			: in std_ulogic;
@@ -104,7 +110,11 @@ begin
     -- Processor peripherals --
     IO_GPIO_NUM                  => 8,                 -- number of GPIO input/output pairs (0..64)
     IO_MTIME_EN                  => true,              -- implement machine system timer (MTIME)?
-    IO_UART0_EN                  => true               -- implement primary universal asynchronous receiver/transmitter (UART0)?
+    IO_UART0_EN                  => true,               -- implement primary universal asynchronous receiver/transmitter (UART0)?
+
+	-- SPI for bootloder (stevez) -- 
+	IO_SPI_EN                => true,  -- implement serial peripheral interface (SPI)?
+    	IO_SPI_FIFO              => 1      -- RTX fifo depth, has to be a power of two, min 1
   )
   port map (
     -- Global control --
@@ -122,7 +132,14 @@ begin
 	gpio_i 	=> con_gpio_i, -- parallel input
     -- primary UART0 (available if IO_UART0_EN = true) --
     uart0_txd_o => uart0_txd_o, -- UART0 send data
-    uart0_rxd_i => uart0_rxd_i  -- UART0 receive data
+    uart0_rxd_i => uart0_rxd_i,  -- UART0 receive data
+
+	-- SPI for bootloader (stevez) --
+    spi_clk_o	=> spi_clk_o, 	-- SPI serial clock
+    spi_dat_o	=> spi_dat_o,	-- controller data out, peripheral data in
+    spi_dat_i	=> spi_dat_i,	-- controller data in, peripheral data out
+    spi_csn_o	=> spi_csn_o	-- chip-select
+
   );
 
   -- GPIO output --
