@@ -42,7 +42,8 @@ use neorv32.neorv32_package.all;
 entity top is
   generic (
     -- adapt these for your setup --
-    CLOCK_FREQUENCY   : natural := 100000000; -- clock frequency of clk_i in Hz
+    -- CLOCK_FREQUENCY   : natural := 100000000; -- clock frequency of clk_i in Hz
+    CLOCK_FREQUENCY   : natural := 50000000; -- clock frequency of clk_i in Hz (stevez) need to be the same as CLOCK_50 in FPGA
     MEM_INT_IMEM_SIZE : natural := 16*1024;   -- size of processor-internal instruction memory in bytes
     MEM_INT_DMEM_SIZE : natural := 8*1024     -- size of processor-internal data memory in bytes
   );
