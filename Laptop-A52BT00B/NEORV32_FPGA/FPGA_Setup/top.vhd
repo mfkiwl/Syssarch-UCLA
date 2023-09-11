@@ -103,6 +103,7 @@ begin
     CPU_EXTENSION_RISCV_Zicntr   => true,              -- implement base counters?
     CPU_EXTENSION_RISCV_Zifencei => true,              -- implement instruction stream sync.? (required for the on-chip debugger)
     -- Internal Instruction memory --
+	-- (stevez) always set below to true regadless whether or not it's bootloder
     MEM_INT_IMEM_EN              => true,              -- implement processor-internal instruction memory
     MEM_INT_IMEM_SIZE            => MEM_INT_IMEM_SIZE, -- size of processor-internal instruction memory in bytes
     -- Internal Data memory --
